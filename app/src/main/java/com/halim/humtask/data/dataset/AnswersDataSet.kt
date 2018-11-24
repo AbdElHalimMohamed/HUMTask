@@ -11,7 +11,7 @@ interface AnswersDataSet {
 
     fun getAnswer(answerId: Long): Flowable<Answer>
 
-    fun addAnswer(answer: Answer): Single<Long>
+    fun addSubAnswer(answer: Answer, subAnswer: Answer): Single<Long>
 
     fun deleteAnswer(answerId: Long): Single<Int>
 

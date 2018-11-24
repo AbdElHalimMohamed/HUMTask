@@ -1,6 +1,7 @@
 package com.halim.humtask.data.dataset.roomdb.dao
 
 import android.arch.persistence.room.*
+import com.halim.humtask.data.model.Answer
 import com.halim.humtask.data.model.Element
 import com.halim.humtask.data.model.Question
 import io.reactivex.Flowable
@@ -15,6 +16,16 @@ interface QuestionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertQuestion(question: Question): Single<Long>
+
+    @Transaction
+    fun addAnswer(question: Question, answer: Answer): Single<Long> {
+        question.answerNum?.inc()
+        return updateQuestion(question)
+            .flatMap { insertAnswer(answer) }
+    }
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAnswer(answer: Answer): Single<Long>
 
     @Update
     fun updateQuestion(question: Question): Single<Int>

@@ -1,8 +1,8 @@
 package com.halim.humtask.data.dataset.roomdb.dao
 
 import android.arch.persistence.room.*
-import com.halim.humtask.data.model.Element
 import com.halim.humtask.data.model.Answer
+import com.halim.humtask.data.model.Element
 import io.reactivex.Flowable
 import io.reactivex.Single
 
@@ -15,6 +15,13 @@ interface AnswerDao {
 
     @Query("SELECT * from ${Answer.TABLE_NAME} WHERE ${Element.COLUMN_PARENT_ID} = :parentId")
     fun getAnswers(parentId: Long): Flowable<List<Answer>>
+
+    @Transaction
+    fun addSubAnswer(answer: Answer, subAnswer: Answer): Single<Long> {
+        answer.answerNum?.inc()
+        return updateAnswer(answer)
+            .flatMap { insertAnswer(subAnswer) }
+    }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAnswer(answer: Answer): Single<Long>

@@ -29,7 +29,7 @@ class AnswerRepoImp(private val dataSet: AnswersDataSet) : AnswerRepo {
         dataSet.updateAnswer(answer.toModel())
 
     override fun addAnswer(answer: AnswerEntity): Single<Long> =
-        dataSet.addAnswer(answer.toModel())
+        dataSet.addSubAnswer(answer.toModel())
 
     private fun AnswerModel.toEntity(): AnswerEntity =
         AnswerEntity(

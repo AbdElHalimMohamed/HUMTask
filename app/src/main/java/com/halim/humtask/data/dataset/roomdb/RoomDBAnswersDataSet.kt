@@ -15,8 +15,8 @@ class RoomDBAnswersDataSet(private val dao: AnswerDao) : AnswersDataSet {
     override fun getAnswer(answerId: Long): Flowable<Answer> =
         dao.getAnswerById(answerId)
 
-    override fun addAnswer(answer: Answer): Single<Long> =
-        dao.insertAnswer(answer)
+    override fun addSubAnswer(answer: Answer, subAnswer: Answer): Single<Long> =
+        dao.addSubAnswer(answer, subAnswer)
 
     override fun deleteAnswer(answerId: Long): Single<Int> =
         dao.deleteAnswer(answerId)
