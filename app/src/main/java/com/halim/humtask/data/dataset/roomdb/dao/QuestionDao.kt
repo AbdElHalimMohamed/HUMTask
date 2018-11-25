@@ -5,7 +5,6 @@ import com.halim.humtask.data.model.Answer
 import com.halim.humtask.data.model.Element
 import com.halim.humtask.data.model.Question
 import io.reactivex.Flowable
-import io.reactivex.Single
 
 
 @Dao
@@ -15,23 +14,16 @@ interface QuestionDao {
     fun getAllQuestions(): Flowable<List<Question>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertQuestion(question: Question): Single<Long>
-
-    @Transaction
-    fun addAnswer(question: Question, answer: Answer): Single<Long> {
-        question.answerNum?.inc()
-        return updateQuestion(question)
-            .flatMap { insertAnswer(answer) }
-    }
+    fun insertQuestion(question: Question): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAnswer(answer: Answer): Single<Long>
+    fun insertAnswer(answer: Answer): Long
 
     @Update
-    fun updateQuestion(question: Question): Single<Int>
+    fun updateQuestion(question: Question): Int
 
     @Query("DELETE from ${Question.TABLE_NAME} WHERE ${Element.COLUMN_ID} = :questionId")
-    fun deleteQuestion(questionId: Long): Single<Int>
+    fun deleteQuestion(questionId: Long): Int
 
     @Query("SELECT * from ${Question.TABLE_NAME} WHERE ${Element.COLUMN_ID} = :questionId")
     fun getQuestionById(questionId: Long): Flowable<Question>

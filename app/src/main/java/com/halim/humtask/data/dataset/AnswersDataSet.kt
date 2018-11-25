@@ -7,11 +7,13 @@ import io.reactivex.Single
 
 interface AnswersDataSet {
 
-    fun listAnswers(parentId: Long): Flowable<List<Answer>>
+    fun listAnswers(questionId: Long): Flowable<List<Answer>>
+
+    fun listSubAnswers(answersId: Long): Flowable<List<Answer>>
 
     fun getAnswer(answerId: Long): Flowable<Answer>
 
-    fun addSubAnswer(answer: Answer, subAnswer: Answer): Single<Long>
+    fun addAnswer(answer: Answer): Single<Long>
 
     fun deleteAnswer(answerId: Long): Single<Int>
 

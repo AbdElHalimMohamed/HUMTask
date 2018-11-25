@@ -5,24 +5,19 @@ import android.os.Parcelable
 
 
 data class Question(
-    val id: Long,
+    val id: Long = 0,
     val title: String,
     val description: String,
-    val numOfAnswers: Int
+    val numOfAnswers: Int = 0
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readInt()
+        "", "", 0
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
-        parcel.writeString(title)
-        parcel.writeString(description)
-        parcel.writeInt(numOfAnswers)
     }
 
     override fun describeContents(): Int {

@@ -9,18 +9,21 @@ import io.reactivex.Single
 
 class RoomDBAnswersDataSet(private val dao: AnswerDao) : AnswersDataSet {
 
-    override fun listAnswers(parentId: Long): Flowable<List<Answer>> =
-        dao.getAnswers(parentId)
+    override fun listAnswers(questionId: Long): Flowable<List<Answer>> =
+        dao.getAnswers(questionId)
+
+    override fun listSubAnswers(answersId: Long): Flowable<List<Answer>> =
+        dao.getSubAnswers(answersId)
 
     override fun getAnswer(answerId: Long): Flowable<Answer> =
         dao.getAnswerById(answerId)
 
-    override fun addSubAnswer(answer: Answer, subAnswer: Answer): Single<Long> =
-        dao.addSubAnswer(answer, subAnswer)
+    override fun addAnswer(answer: Answer): Single<Long> =
+        Single.fromCallable { dao.addAnswer(answer) }
 
     override fun deleteAnswer(answerId: Long): Single<Int> =
-        dao.deleteAnswer(answerId)
+        Single.fromCallable { dao.deleteAnswer(answerId) }
 
     override fun updateAnswer(answer: Answer): Single<Int> =
-        dao.updateAnswer(answer)
+        Single.fromCallable { dao.updateAnswer(answer) }
 }

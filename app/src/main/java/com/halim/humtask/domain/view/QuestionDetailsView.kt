@@ -6,4 +6,6 @@ import com.halim.humtask.domain.entity.Question
 interface QuestionDetailsView : AnswerListView {
 
     fun showQuestion(question: Question)
+
+    fun openAddAnswer(question: Question)
 }

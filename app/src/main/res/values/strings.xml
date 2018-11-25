@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">HUMTask</string>
+	<string name="num_answers">No. answers:</string>
+	<string name="error_msg">Error loading data</string>
+	<string name="no_data_found">No data found</string>
+	<string name="save">Save</string>
+	<string name="add">Add</string>
+	<string name="add_question">Add question</string>
+	<string name="add_answer">Add answer</string>
+	<string name="question_details">Question details</string>
+	<string name="answer_details">Answer details</string>
+	<string name="answers">Answers</string>
 </resources>

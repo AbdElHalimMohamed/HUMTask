@@ -25,6 +25,7 @@ open class SimpleDisposableSubscriber<T>(view: View?) :
 
     override fun onError(e: Throwable) {
         // TODO parse the exception
+        baseView.value?.hideLoadingDataProgress()
         baseView.value?.showErrorMsg()
     }
 }
